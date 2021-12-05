@@ -1,0 +1,250 @@
+#include <stdio.h>
+
+void union_array (int n,int m,int arr1[], int arr2[] );
+void intersection_array (int n, int m,int arr1[],  int arr2[], int temp_arr[]);
+void differnce_array (int n, int m,int arr1[],  int arr2[]);
+void symmetric_difference_array (int n, int m,int arr1[],  int arr2[]);
+int main()
+{
+  int n, m,ch;
+  printf("Enter no. of elements of first set: ");
+  scanf("%d",&n);
+  printf("Enter no of elements of second array: ");
+  scanf("%d", &m);
+  int arr1[n];
+  int arr2[m];
+  int temp_arr[100];
+  printf("Enter elements of first array:");
+  for(int i = 0; i < n; i ++)
+  {
+    scanf("%d", &arr1[i]);
+  }
+  printf("Enter elements of second array: ");
+  for(int i = 0; i < m; i++)
+  {
+    scanf("%d", &arr2[i]);
+  }
+  
+  printf("The elements of set A are:");
+  printf("set A ={");
+  for(int i = 0; i < n; i++)
+  {
+    printf("%d", arr1[i]);
+  }
+  printf("}\n");
+
+  printf("The elements of set B are:");
+  printf("set B ={");
+  for(int i = 0; i < m; i++)
+  {
+    printf("%d", arr2[i]);
+  }
+  printf("}\n");
+
+
+  printf("Menu\n:");
+  printf("Enter 1 to find union:\n");
+  printf("Enter 2 to find intersection\n");
+  printf("Enter 3 to find difference of array:\n");
+  printf("Enter 4 to find symmetric difference:\n");
+  printf("Enter 5 to exit:\n");
+
+
+
+  
+  
+
+  printf("Enter the choice");
+  scanf("%d", &ch);
+
+
+
+  {
+    switch(ch)
+   {
+     case 1:
+     union_array ( n,m, arr1,   arr2 );
+     break;
+
+     case 2:
+     intersection_array(n,m,arr1, arr2, temp_arr);
+     break;
+
+     case 3:
+     differnce_array(n,m, arr1, arr2);
+     break;
+
+     case 4:
+     symmetric_difference_array (m, n,arr1, arr2);
+     break;
+
+    
+     default:
+     printf("Please enter correct choice");
+   }
+
+  }
+ 
+  return 0;
+}
+
+void union_array(int n,int m,int arr1[],  int arr2[] )
+{ 
+  int k;
+  int temp_arr[100];
+  for(int i = 0; i < n; i++)
+  {
+    temp_arr[k] = arr1[i];
+    k++;
+  }
+  for(int i = 0; i < m; i++)
+  { 
+    int q = 1;
+    for(int j = 0; j < n; j++)
+    {
+      if(arr2[i] == arr1[j])
+     {
+      q = 0;
+      break;
+     } 
+    }
+    if(q == 1)
+    {
+      temp_arr[k] = arr2[i];
+      k++;
+    }
+  }
+  
+
+  for(int i = 0; i < k; i++)
+  {
+    printf("%d\t",temp_arr[i]);
+  } 
+
+}
+
+
+void intersection_array (int n, int m,int arr1[],  int arr2[], int temp_arr[])
+{ 
+  int k;
+  for(int i = 0; i < n ; i++)
+  {
+    for(int j = 0; j < m; j++)
+    {
+      if(arr1[i] == arr2[j])
+      {
+        temp_arr[k] = arr1[i];
+        k++;
+      } 
+    }
+  }
+
+  for(int i = 0; i < k; i++)
+  {
+     printf("%d\t",temp_arr[i]);
+  }
+}
+
+void differnce_array(int n, int m, int arr1[], int arr2[])
+{
+    int temp_arr[5];
+    int k = 0;
+    
+    for (int i = 0; i < n; i++)
+    {
+        int flag = 0;
+        for (int j = 0; j < m; j++)
+        {
+            if (arr1[i] == arr2[j])
+            {
+                flag = 1;
+                break;
+            }
+        }
+        if(flag == 0)
+        {
+            temp_arr[k++] = arr1[i];
+        }
+    }
+
+    for (int i = 0; i < k; i++)
+    {
+        printf("%d\t", temp_arr[i]);
+    }
+}
+
+void symmetric_difference_array (int n, int m,int arr1[],  int arr2[])
+{
+  int temp_arr[10];
+    int k = 0;
+    
+    for (int i = 0; i < n; i++)
+    {
+        int flag = 0;
+        for (int j = 0; j < m; j++)
+        {
+            if (arr1[i] == arr2[j])
+            {
+                flag = 1;
+                break;
+            }
+        }
+        if(flag == 0)
+        {
+            temp_arr[k++] = arr1[i];
+        }
+    }
+
+   int temp_arr2[10];
+   int p = 0;
+   for (int i = 0; i < m; i++)
+    {
+        int flag = 0;
+        for (int j = 0; j < n; j++)
+        {
+            if (arr2[j] == arr1[i])
+            {
+                flag = 1;
+                break;
+            }
+        }
+        if(flag == 0)
+        {
+            temp_arr2[p++] = arr1[i];
+        }
+    }
+
+int r = 0;
+int temp_arr3[100];
+
+  for(int i = 0; i < k; i++)
+  {
+    temp_arr3[r] = temp_arr[i];
+    r++;
+  }
+  for(int i = 0; i < p; i++)
+  { 
+    int q = 1;
+    for(int j = 0; j < k; j++)
+    {
+      if(temp_arr2[i] == temp_arr[j])
+     {
+      q = 0;
+      break;
+     } 
+    }
+    if(q == 1)
+    {
+      temp_arr3[r] = arr2[i];
+      r++;
+    }
+  }
+  
+
+  for(int i = 0; i < r; i++)
+  {
+    printf("%d\t",temp_arr3[i]);
+  } 
+
+}
+
